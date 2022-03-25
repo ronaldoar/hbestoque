@@ -1,4 +1,4 @@
-package br.com.cs.hbestoque;
+package br.com.tcs.hbestoque;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
