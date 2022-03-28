@@ -33,6 +33,12 @@ public class Fornecedor {
 	@Column(name="ATIVO", nullable=false)
 	private boolean ativo;
 	
+	public Fornecedor(Long id){
+		this.id = id;
+	}
+	
+	public Fornecedor(){}
+	
 	public Long getId() {
 		return id;
 	}

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.tcs.hbestoque.model.Produto;
 import br.com.tcs.hbestoque.model.commons.CategoriaProdutoEnum;
+import br.com.tcs.hbestoque.model.commons.VolumeEnum;
 import br.com.tcs.hbestoque.repository.ProdutoRepository;
 
 @Service
@@ -22,6 +23,10 @@ public class ProdutoService {
 
 	public Optional<Produto> pesquisarPorCategoria(CategoriaProdutoEnum categoria, boolean ativo){
 		return repository.pesquisarPorCategoria(categoria, ativo);
+	}
+	
+	public List<Produto> pesquisarPorProduto(String nome, VolumeEnum volume){
+		return repository.pesquisarPorProduto(nome, volume);
 	}
 	
 	public List<Produto> loadAll() {

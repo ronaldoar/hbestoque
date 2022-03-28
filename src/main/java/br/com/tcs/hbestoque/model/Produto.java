@@ -16,6 +16,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import br.com.tcs.hbestoque.model.commons.CategoriaProdutoEnum;
 import br.com.tcs.hbestoque.model.commons.VolumeEnum;
 
@@ -42,6 +44,7 @@ public class Produto {
 	@Column(name="DESC_PRODUTO", length=120, nullable=true, unique=true)
 	private String descricao;
 	
+	@JsonSerialize()
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="CD_FORNECEDOR", nullable=false)
 	private Fornecedor fornecedor;
