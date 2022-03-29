@@ -3,13 +3,15 @@ package br.com.tcs.hbestoque.model;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+
 public class Reserva {
-	
+
 	private Long id;
 	private Integer quantidade;
 	private Produto produto;
 	private LocalDate dataReserva;
 	private LocalDateTime dtCadastro;
+	private boolean ativo;
 	
 	public Long getId() {
 		return id;
@@ -40,6 +42,12 @@ public class Reserva {
 	}
 	public void setDtCadastro(LocalDateTime dtCadastro) {
 		this.dtCadastro = dtCadastro;
+	}
+	public boolean isAtivo() {
+		return ativo;
+	}
+	public void setAtivo(boolean ativo) {
+		this.ativo = ativo;
 	}
 	
 }

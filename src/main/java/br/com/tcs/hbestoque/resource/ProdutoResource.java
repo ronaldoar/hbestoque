@@ -37,7 +37,7 @@ public class ProdutoResource {
 				List<Produto> lista = produtoService.pesquisarPorProduto(dto.getNome(), ProdutoDto.parseEnum(dto.getVolume()));
 				
 				if(lista.isEmpty()) {
-					Produto p = ProdutoDto.parse(dto);
+					Produto p = ProdutoDto.parseToProduto(dto);
 					produtoService.salvar(p);
 					return new ResponseEntity<>(p,HttpStatus.CREATED);
 					
@@ -57,7 +57,8 @@ public class ProdutoResource {
 		public ResponseEntity<?> listar(){
 			
 			try {
-				return new ResponseEntity<>(produtoService.loadAll(), HttpStatus.OK);			
+				
+				return new ResponseEntity<>(ProdutoDto.parseList(produtoService.loadAll()), HttpStatus.OK);			
 				
 			}catch(Exception ex) {
 				logger.error("[LISTAR-PRODUTOS]", ex.fillInStackTrace());
@@ -71,7 +72,7 @@ public class ProdutoResource {
 			
 			try {
 				VolumeEnum vl = VolumeEnum.fromText(volume);
-				return new ResponseEntity<>(produtoService.pesquisarPorProduto(nome, vl), HttpStatus.OK);			
+				return new ResponseEntity<>(ProdutoDto.parseList(produtoService.pesquisarPorProduto(nome, vl)), HttpStatus.OK);			
 				
 			}catch(Exception ex) {
 				logger.error("[LISTAR-PRODUTOS]", ex.fillInStackTrace());

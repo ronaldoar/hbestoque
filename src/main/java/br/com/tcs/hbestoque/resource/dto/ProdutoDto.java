@@ -1,6 +1,8 @@
 package br.com.tcs.hbestoque.resource.dto;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import br.com.tcs.hbestoque.model.Fornecedor;
 import br.com.tcs.hbestoque.model.Produto;
@@ -10,6 +12,7 @@ import br.com.tcs.hbestoque.model.commons.VolumeEnum;
 public class ProdutoDto {
 
 	private Long idFornecedor;
+	private String nomeFornecedor;
 	private String nome;
 	private String descricao;
 	private Integer categoria;
@@ -17,7 +20,7 @@ public class ProdutoDto {
 	
 	
 	
-	public static Produto parse(ProdutoDto dto) {
+	public static Produto parseToProduto(ProdutoDto dto) {
 		Produto p = new Produto();
 		p.setFornecedor(new Fornecedor(dto.getIdFornecedor()));
 		p.setAtivo(false);
@@ -29,6 +32,30 @@ public class ProdutoDto {
 		p.setVolume(parseEnum(dto.getVolume()));		
 		return p;
 	}
+
+	public static ProdutoDto parseToDto(Produto p) {
+		ProdutoDto dto = new ProdutoDto();
+		dto.setCategoria(p.getCategoria().ordinal());
+		dto.setDescricao(p.getDescricao());
+		dto.setIdFornecedor(p.getFornecedor().getId());
+		dto.setNome(p.getNome());
+		dto.setVolume(p.getVolume().ordinal());
+		return dto;
+	}
+	
+	
+	public static List<ProdutoDto> parseList(List<Produto>lista){
+		List<ProdutoDto>dtos = new ArrayList<ProdutoDto>();
+		
+		for(Produto p : lista) {
+			ProdutoDto pDto = parseToDto(p);
+			pDto.setIdFornecedor(p.getFornecedor().getId());
+			pDto.setNomeFornecedor(p.getNome());
+			dtos.add(pDto);
+		}
+		return dtos;
+	}
+	
 	
 	public static VolumeEnum parseEnum(Integer volume) {
 		VolumeEnum[]volumes = VolumeEnum.values();
@@ -89,8 +116,12 @@ public class ProdutoDto {
 		this.volume = volume;
 	}
 
+	public String getNomeFornecedor() {
+		return nomeFornecedor;
+	}
 
-	
-//	private CategoriaProdutoEnum categoria;
+	public void setNomeFornecedor(String nomeFornecedor) {
+		this.nomeFornecedor = nomeFornecedor;
+	}
 	
 }

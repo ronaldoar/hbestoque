@@ -1,8 +1,11 @@
 package br.com.tcs.hbestoque.resource.dto;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import br.com.tcs.hbestoque.model.Fornecedor;
+import br.com.tcs.hbestoque.model.Produto;
 
 public class FornecedorDto {
 	
@@ -20,6 +23,15 @@ public class FornecedorDto {
 		f.setNome(dto.getNome());
 		return f;
 	}
+	
+	public static FornecedorDto parse(Fornecedor f) {
+		FornecedorDto dto = new FornecedorDto();
+		dto.setAtivo(true);
+		dto.setCnpj(dto.getCnpj());
+		dto.setNome(dto.getNome());
+		return dto;
+	}
+
 	
 	public Long getId() {
 		return id;
