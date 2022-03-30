@@ -1,18 +1,18 @@
 package br.com.tcs.hbestoque.resource.dto;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 import br.com.tcs.hbestoque.model.Fornecedor;
-import br.com.tcs.hbestoque.model.Produto;
 
 public class FornecedorDto {
 	
 	private Long id;
 	private String nome;
 	private Long cnpj;
+	private LocalDateTime dtCadastro;
+	private LocalDateTime dtUltAlt;
 	private boolean ativo;
+	
 	
 	public static Fornecedor parse(FornecedorDto dto) {
 		Fornecedor f = new Fornecedor();
@@ -24,11 +24,13 @@ public class FornecedorDto {
 		return f;
 	}
 	
-	public static FornecedorDto parse(Fornecedor f) {
+	public static FornecedorDto parse(Fornecedor fornecedor) {
 		FornecedorDto dto = new FornecedorDto();
-		dto.setAtivo(true);
-		dto.setCnpj(dto.getCnpj());
-		dto.setNome(dto.getNome());
+		dto.setAtivo(fornecedor.isAtivo());
+		dto.setCnpj(fornecedor.getCnpj());
+		dto.setNome(fornecedor.getNome());
+		dto.setDtUltAlt(fornecedor.getDtUltAlt());
+		dto.setDtCadastro(fornecedor.getDtCadastro());
 		return dto;
 	}
 
@@ -51,11 +53,29 @@ public class FornecedorDto {
 	public void setCnpj(Long cnpj) {
 		this.cnpj = cnpj;
 	}
+	public LocalDateTime getDtCadastro() {
+		return dtCadastro;
+	}
+	public void setDtCadastro(LocalDateTime dtCadastro) {
+		this.dtCadastro = dtCadastro;
+	}
+	public LocalDateTime getDtUltAlt() {
+		return dtUltAlt;
+	}
+	public void setDtUltAlt(LocalDateTime dtUltAlt) {
+		this.dtUltAlt = dtUltAlt;
+	}
 	public boolean isAtivo() {
 		return ativo;
 	}
 	public void setAtivo(boolean ativo) {
 		this.ativo = ativo;
+	}
+
+	@Override
+	public String toString() {
+		return "FornecedorDto [id=" + id + ", nome=" + nome + ", cnpj=" + cnpj + ", dtCadastro=" + dtCadastro
+				+ ", dtUltAlt=" + dtUltAlt + ", ativo=" + ativo + "]";
 	}
 	
 }

@@ -1,12 +1,11 @@
 package br.com.tcs.hbestoque.model;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,10 +13,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
-
-import br.com.tcs.hbestoque.model.commons.CategoriaProdutoEnum;
-import br.com.tcs.hbestoque.model.commons.VolumeEnum;
 
 /**
  * Class <code>Produto</code></br>
@@ -29,31 +24,23 @@ import br.com.tcs.hbestoque.model.commons.VolumeEnum;
  */
 
 @Entity
-@Table(name="TB_PRODUTO", uniqueConstraints={@UniqueConstraint(columnNames={"NOME_PRODUTO"})})
+@Table(name="TB_PRODUTO")
 public class Produto {
 	
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="CD_PRODUTO", nullable=false)
 	private Long id;
 		
-	@Column(name="NOME_PRODUTO", length=100, nullable=false)
+	@Column(name="NOME_PRODUTO", length=100, nullable=false, unique = true)
 	private String nome;
-
-	@Column(name="DESC_PRODUTO", length=120, nullable=true, unique=true)
-	private String descricao;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@Column(name="VALOR_UNIDADE", length=100, nullable=false)
+	private BigDecimal valorUnidade;
+	
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="CD_FORNECEDOR", nullable=false)
 	private Fornecedor fornecedor;
 
-	@Enumerated(EnumType.STRING)
-	@Column(name="CATEGORIA", nullable=false, unique=true)
-	private CategoriaProdutoEnum categoria;
-	
-	@Enumerated(EnumType.STRING)
-	@Column(name="VOLUME", nullable=false, unique=true)
-	private VolumeEnum volume;
-			
 	@Column(name="DT_CADASTRO", nullable=false)
 	private LocalDateTime dtCadastro;
 
@@ -62,10 +49,13 @@ public class Produto {
 		
 	@Column(name="ATIVO", length=100, nullable=false)
 	private boolean ativo;
-	
-	@Column(name="USUARIO_ID", length=120, nullable=true, unique=true)
-	private String String;
 
+	public Produto() {}
+	
+	public Produto(Long id) {
+		this.id = id;
+	}
+	
 	public Long getId() {
 		return id;
 	}
@@ -82,28 +72,12 @@ public class Produto {
 		this.nome = nome;
 	}
 
-	public String getDescricao() {
-		return descricao;
+	public BigDecimal getValorUnidade() {
+		return valorUnidade;
 	}
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
-
-	public CategoriaProdutoEnum getCategoria() {
-		return categoria;
-	}
-
-	public void setCategoria(CategoriaProdutoEnum categoria) {
-		this.categoria = categoria;
-	}
-
-	public VolumeEnum getVolume() {
-		return volume;
-	}
-
-	public void setVolume(VolumeEnum volume) {
-		this.volume = volume;
+	public void setValorUnidade(BigDecimal valorUnidade) {
+		this.valorUnidade = valorUnidade;
 	}
 
 	public Fornecedor getFornecedor() {
@@ -138,14 +112,6 @@ public class Produto {
 		this.ativo = ativo;
 	}
 
-	public String getString() {
-		return String;
-	}
-
-	public void setString(String string) {
-		String = string;
-	}
-
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -165,9 +131,10 @@ public class Produto {
 
 	@Override
 	public String toString() {
-		return "Produto [id=" + id + ", nome=" + nome + ", email=" + descricao + ", categoria=" + categoria
-				+ ", dtCadastro=" + dtCadastro + ", dtUltAlt=" + dtUltAlt + ", ativo=" + ativo + "]";
+		return "Produto [id=" + id + ", nome=" + nome + ", valorUnidade=" + valorUnidade + ", fornecedor=" + fornecedor
+				+ ", dtCadastro=" + dtCadastro + ", dtUltAlt=" + dtUltAlt + ", ativo="
+				+ ativo + "]";
 	}
-	
+
 	
 }
