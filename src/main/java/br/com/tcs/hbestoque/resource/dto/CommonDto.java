@@ -1,7 +1,7 @@
 package br.com.tcs.hbestoque.resource.dto;
 
 import br.com.tcs.hbestoque.model.commons.CategoriaProdutoEnum;
-import br.com.tcs.hbestoque.model.commons.TipoEmbalagemEnum;
+import br.com.tcs.hbestoque.model.commons.TipoEnvazamentoEnum;
 import br.com.tcs.hbestoque.model.commons.VolumeEnum;
 
 public class CommonDto {
@@ -32,11 +32,11 @@ public class CommonDto {
 		return cselect;
 	}
 
-	public static TipoEmbalagemEnum parseTipoEmbalabem(Integer embalagem) {
-		TipoEmbalagemEnum[]embalagens = TipoEmbalagemEnum.values();
-		TipoEmbalagemEnum eselect  = null;
+	public static TipoEnvazamentoEnum parseTipoEnvazamentoEnum(Integer embalagem) {
+		TipoEnvazamentoEnum[]embalagens = TipoEnvazamentoEnum.values();
+		TipoEnvazamentoEnum eselect  = null;
 		
-		for(TipoEmbalagemEnum e : embalagens) {
+		for(TipoEnvazamentoEnum e : embalagens) {
 			if(e.ordinal() == embalagem) {
 				eselect = e;
 				break;

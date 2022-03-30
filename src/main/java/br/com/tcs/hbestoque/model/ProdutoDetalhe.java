@@ -1,5 +1,6 @@
 package br.com.tcs.hbestoque.model;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -15,7 +16,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import br.com.tcs.hbestoque.model.commons.CategoriaProdutoEnum;
 import br.com.tcs.hbestoque.model.commons.TipoEmbalagemEnum;
 import br.com.tcs.hbestoque.model.commons.VolumeEnum;
 
@@ -35,26 +35,24 @@ public class ProdutoDetalhe {
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="CD_PRODUTO_DETALHE", nullable=false)
 	private Long id;
-		
-	@Column(name="DESC_PRODUTO", length=120, nullable=true)
-	private String descricao;
-	
+			
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="CD_PRODUTO", nullable=false)
 	private Produto produto;
-
-	@Enumerated(EnumType.STRING)
-	@Column(name="CATEGORIA", nullable=false)
-	private CategoriaProdutoEnum categoria;
 	
+	@Column(name="CUSTO_UNIDADE", length=100, nullable=false)
+	private BigDecimal custoUnidade;
+	
+	@Column(name="PRECO_UNITARIO", length=100, nullable=false)
+	private BigDecimal precoUnitario;
+	
+	@Column(name="TIPO_EMBALAGEM", length=100, nullable=false)
+	private TipoEmbalagemEnum tipoEmbalagem;
+		
 	@Enumerated(EnumType.STRING)
 	@Column(name="VOLUME", nullable=false)
 	private VolumeEnum volume;
 	
-	@Enumerated(EnumType.STRING)
-	@Column(name="TIPO_EMBALAGEM", nullable=false)
-	private TipoEmbalagemEnum tipoEmbalagem;
-			
 	@Column(name="DT_ULT_ALT", nullable=false)
 	private LocalDateTime dtUltAlt;
 
@@ -66,14 +64,6 @@ public class ProdutoDetalhe {
 		this.id = id;
 	}
 
-	public String getDescricao() {
-		return descricao;
-	}
-
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
-
 	public Produto getProduto() {
 		return produto;
 	}
@@ -82,20 +72,20 @@ public class ProdutoDetalhe {
 		this.produto = produto;
 	}
 
-	public CategoriaProdutoEnum getCategoria() {
-		return categoria;
+	public BigDecimal getCustoUnidade() {
+		return custoUnidade;
 	}
 
-	public void setCategoria(CategoriaProdutoEnum categoria) {
-		this.categoria = categoria;
+	public void setCustoUnidade(BigDecimal custoUnidade) {
+		this.custoUnidade = custoUnidade;
 	}
 
-	public VolumeEnum getVolume() {
-		return volume;
+	public BigDecimal getPrecoUnitario() {
+		return precoUnitario;
 	}
 
-	public void setVolume(VolumeEnum volume) {
-		this.volume = volume;
+	public void setPrecoUnitario(BigDecimal precoUnitario) {
+		this.precoUnitario = precoUnitario;
 	}
 
 	public TipoEmbalagemEnum getTipoEmbalagem() {
@@ -104,6 +94,14 @@ public class ProdutoDetalhe {
 
 	public void setTipoEmbalagem(TipoEmbalagemEnum tipoEmbalagem) {
 		this.tipoEmbalagem = tipoEmbalagem;
+	}
+
+	public VolumeEnum getVolume() {
+		return volume;
+	}
+
+	public void setVolume(VolumeEnum volume) {
+		this.volume = volume;
 	}
 
 	public LocalDateTime getDtUltAlt() {
@@ -133,9 +131,10 @@ public class ProdutoDetalhe {
 
 	@Override
 	public String toString() {
-		return "ProdutoDetalhe [id=" + id + ", descricao=" + descricao + ", produto=" + produto + ", categoria="
-				+ categoria + ", volume=" + volume + ", tipoEmbalagem=" + tipoEmbalagem + ", dtUltAlt=" + dtUltAlt
-				+ "]";
+		return "ProdutoDetalhe [id=" + id + ", produto=" + produto + ", custoUnidade=" + custoUnidade
+				+ ", precoUnitario=" + precoUnitario + ", tipoEmbalagem=" + tipoEmbalagem + ", volume=" + volume
+				+ ", dtUltAlt=" + dtUltAlt + "]";
 	}
-	
+
+		
 }

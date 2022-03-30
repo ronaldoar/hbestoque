@@ -1,26 +1,29 @@
 package br.com.tcs.hbestoque.resource.dto;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import br.com.tcs.hbestoque.model.Produto;
 import br.com.tcs.hbestoque.model.ProdutoDetalhe;
+import br.com.tcs.hbestoque.model.commons.TipoEmbalagemEnum;
+import br.com.tcs.hbestoque.model.commons.VolumeEnum;
 
 public class DetalheProdutoDtoCadastro {
 	
 	private Long idProduto;
-	private String descricao;
-	private Integer categoria;
-	private Integer volume;
+	private BigDecimal custoUnidade;
+	private BigDecimal precoUnitario;
 	private Integer tipoEmbalagem;
+	private Integer volume;
 	
 	
 	public static ProdutoDetalhe parse(DetalheProdutoDtoCadastro dto){
 		ProdutoDetalhe dt = new ProdutoDetalhe();
-		dt.setDescricao(dto.getDescricao());
 		dt.setProduto(new Produto(dto.getIdProduto()));
-		dt.setCategoria(CommonDto.parseCategoria(dto.getCategoria()));
-		dt.setVolume(CommonDto.parseVolume(dto.getVolume()));
-		dt.setTipoEmbalagem(CommonDto.parseTipoEmbalabem(dto.getTipoEmbalagem()));
+		dt.setTipoEmbalagem(TipoEmbalagemEnum.values()[dto.getTipoEmbalagem()]);
+		dt.setPrecoUnitario(dto.getPrecoUnitario());
+		dt.setCustoUnidade(dto.getCustoUnidade());
+		dt.setVolume(VolumeEnum.values()[dto.getVolume()]);
 		dt.setDtUltAlt(LocalDateTime.now());
 		return dt;
 	}	
@@ -31,18 +34,23 @@ public class DetalheProdutoDtoCadastro {
 	public void setIdProduto(Long idProduto) {
 		this.idProduto = idProduto;
 	}
-	public String getDescricao() {
-		return descricao;
+	
+	public BigDecimal getCustoUnidade() {
+		return custoUnidade;
 	}
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+
+	public void setCustoUnidade(BigDecimal custoUnidade) {
+		this.custoUnidade = custoUnidade;
 	}
-	public Integer getCategoria() {
-		return categoria;
+
+	public BigDecimal getPrecoUnitario() {
+		return precoUnitario;
 	}
-	public void setCategoria(Integer categoria) {
-		this.categoria = categoria;
+
+	public void setPrecoUnitario(BigDecimal precoUnitario) {
+		this.precoUnitario = precoUnitario;
 	}
+
 	public Integer getVolume() {
 		return volume;
 	}
@@ -55,10 +63,4 @@ public class DetalheProdutoDtoCadastro {
 	public void setTipoEmbalagem(Integer tipoEmbalagem) {
 		this.tipoEmbalagem = tipoEmbalagem;
 	}
-	@Override
-	public String toString() {
-		return "DetalheProdutoDtoCadastro [idProduto=" + idProduto + ", descricao=" + descricao + ", categoria="
-				+ categoria + ", volume=" + volume + ", tipoEmbalagem=" + tipoEmbalagem + "]";
-	}
-	
 }

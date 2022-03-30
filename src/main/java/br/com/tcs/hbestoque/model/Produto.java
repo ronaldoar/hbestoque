@@ -1,11 +1,12 @@
 package br.com.tcs.hbestoque.model;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,6 +14,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import br.com.tcs.hbestoque.model.commons.CategoriaProdutoEnum;
+import br.com.tcs.hbestoque.model.commons.TipoEnvazamentoEnum;
 
 /**
  * Class <code>Produto</code></br>
@@ -34,8 +38,12 @@ public class Produto {
 	@Column(name="NOME_PRODUTO", length=100, nullable=false, unique = true)
 	private String nome;
 	
-	@Column(name="VALOR_UNIDADE", length=100, nullable=false)
-	private BigDecimal valorUnidade;
+	@Enumerated(EnumType.STRING)
+	@Column(name="CATEGORIA", nullable=false)
+	private CategoriaProdutoEnum categoria;
+	
+	@Column(name="TIPO_ENVAZAMENTO", length=10, nullable=false)
+	private TipoEnvazamentoEnum tipoEnvazamento;
 	
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="CD_FORNECEDOR", nullable=false)
@@ -55,7 +63,7 @@ public class Produto {
 	public Produto(Long id) {
 		this.id = id;
 	}
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -72,12 +80,20 @@ public class Produto {
 		this.nome = nome;
 	}
 
-	public BigDecimal getValorUnidade() {
-		return valorUnidade;
+	public CategoriaProdutoEnum getCategoria() {
+		return categoria;
 	}
 
-	public void setValorUnidade(BigDecimal valorUnidade) {
-		this.valorUnidade = valorUnidade;
+	public void setCategoria(CategoriaProdutoEnum categoria) {
+		this.categoria = categoria;
+	}
+
+	public TipoEnvazamentoEnum getTipoEnvazamento() {
+		return tipoEnvazamento;
+	}
+
+	public void setTipoEnvazamento(TipoEnvazamentoEnum tipoEnvazamento) {
+		this.tipoEnvazamento = tipoEnvazamento;
 	}
 
 	public Fornecedor getFornecedor() {
@@ -131,10 +147,9 @@ public class Produto {
 
 	@Override
 	public String toString() {
-		return "Produto [id=" + id + ", nome=" + nome + ", valorUnidade=" + valorUnidade + ", fornecedor=" + fornecedor
-				+ ", dtCadastro=" + dtCadastro + ", dtUltAlt=" + dtUltAlt + ", ativo="
-				+ ativo + "]";
+		return "Produto [id=" + id + ", nome=" + nome + ", categoria=" + categoria + ", tipoEnvazamento="
+				+ tipoEnvazamento + ", fornecedor=" + fornecedor + ", dtCadastro=" + dtCadastro + ", dtUltAlt="
+				+ dtUltAlt + ", ativo=" + ativo + "]";
 	}
-
 	
 }

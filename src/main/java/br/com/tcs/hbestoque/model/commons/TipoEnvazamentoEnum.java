@@ -3,16 +3,16 @@ package br.com.tcs.hbestoque.model.commons;
 import java.util.Arrays;
 import java.util.NoSuchElementException;
 
-public enum TipoEmbalagemEnum {
+public enum TipoEnvazamentoEnum {
 	
-	CX6("CX-6", 0),
-	CX12("CX-12", 1),
-	CX24("CX-24", 2);
+	LATA("Lata", 0),
+	GARRAFA("Garrafa", 1),
+	PLASTICO("Plástico", 2);
 	
 	private final String nome;
 	private final int id;
 	
-	private TipoEmbalagemEnum(String nome, int id){
+	private TipoEnvazamentoEnum(String nome, int id){
 		this.nome  = nome;
 		this.id    = id;
 	}
@@ -22,7 +22,7 @@ public enum TipoEmbalagemEnum {
 	 * @param text
 	 * @return enum or null
 	 */
-	public static TipoEmbalagemEnum fromText(String text) {
+	public static TipoEnvazamentoEnum fromText(String text) {
 		
 		try {
 			return Arrays.stream(values())

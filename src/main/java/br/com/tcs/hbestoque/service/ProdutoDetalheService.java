@@ -28,7 +28,7 @@ public class ProdutoDetalheService {
 	public List<ProdutoDetalhe> persquisarPorDetalhe(Long id, TipoEmbalagemEnum tipo, VolumeEnum volume) {
 		return repository.pesquisarPorProdutoDetalhe(id, tipo, volume);
 	}
-	
+
 	public Optional<ProdutoDetalhe> buscarPorId(Long id) {
 		return repository.findById(id);
 	}

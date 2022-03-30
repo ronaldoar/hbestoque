@@ -1,23 +1,26 @@
 	package br.com.tcs.hbestoque.resource.dto;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import br.com.tcs.hbestoque.model.Fornecedor;
 import br.com.tcs.hbestoque.model.Produto;
+import br.com.tcs.hbestoque.model.commons.CategoriaProdutoEnum;
+import br.com.tcs.hbestoque.model.commons.TipoEnvazamentoEnum;
 
 public class ProdutoDtoCadastro {
 
 	private Long idFornecedor;
 	private String nome;
-	private BigDecimal valorUnidade;
+	private Integer categoria;
+	private Integer tipoEnvazamento;
 	private boolean ativo;
 	
 	public static Produto parse(ProdutoDtoCadastro dto) {
 		Produto p = new Produto();
 		p.setNome(dto.getNome());
 		p.setFornecedor(new Fornecedor(dto.getIdFornecedor()));
-		p.setValorUnidade(dto.getValorUnidade());
+		p.setCategoria(CategoriaProdutoEnum.values()[dto.getCategoria()]);
+		p.setTipoEnvazamento(TipoEnvazamentoEnum.values()[dto.getTipoEnvazamento()]);
 		p.setDtCadastro(LocalDateTime.now());
 		p.setDtUltAlt(LocalDateTime.now());
 		p.setAtivo(dto.isAtivo());
@@ -36,11 +39,17 @@ public class ProdutoDtoCadastro {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public BigDecimal getValorUnidade() {
-		return valorUnidade;
+	public Integer getCategoria() {
+		return categoria;
 	}
-	public void setValorUnidade(BigDecimal valorUnidade) {
-		this.valorUnidade = valorUnidade;
+	public void setCategoria(Integer categoria) {
+		this.categoria = categoria;
+	}
+	public Integer getTipoEnvazamento() {
+		return tipoEnvazamento;
+	}
+	public void setTipoEnvazamento(Integer tipoEnvazamento) {
+		this.tipoEnvazamento = tipoEnvazamento;
 	}
 	public boolean isAtivo() {
 		return ativo;

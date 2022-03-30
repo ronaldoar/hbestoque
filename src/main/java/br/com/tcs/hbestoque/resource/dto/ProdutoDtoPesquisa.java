@@ -1,6 +1,5 @@
 	package br.com.tcs.hbestoque.resource.dto;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +11,8 @@ public class ProdutoDtoPesquisa {
 	private Long idFornecedor;
 	private String nomeFornecedor;
 	private String nome;
-	private BigDecimal valorUnidade;
+	private Integer categoria;
+	private Integer tipoEnvazamento;
 	private boolean ativo;
 	
 
@@ -22,8 +22,9 @@ public class ProdutoDtoPesquisa {
 		dto.setIdFornecedor(produto.getFornecedor().getId());
 		dto.setNomeFornecedor(produto.getFornecedor().getNome());
 		dto.setNome(produto.getNome());
-		dto.setValorUnidade(produto.getValorUnidade());
 		dto.setAtivo(produto.isAtivo());
+		dto.setCategoria(produto.getCategoria().ordinal());
+		dto.setTipoEnvazamento(produto.getTipoEnvazamento().ordinal());
 		return dto;
 	}
 	
@@ -65,12 +66,27 @@ public class ProdutoDtoPesquisa {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public BigDecimal getValorUnidade() {
-		return valorUnidade;
+	
+	public Integer getCategoria() {
+		return categoria;
 	}
-	public void setValorUnidade(BigDecimal valorUnidade) {
-		this.valorUnidade = valorUnidade;
+
+
+	public void setCategoria(Integer categoria) {
+		this.categoria = categoria;
 	}
+
+
+	public Integer getTipoEnvazamento() {
+		return tipoEnvazamento;
+	}
+
+
+	public void setTipoEnvazamento(Integer tipoEnvazamento) {
+		this.tipoEnvazamento = tipoEnvazamento;
+	}
+
+
 	public boolean isAtivo() {
 		return ativo;
 	}

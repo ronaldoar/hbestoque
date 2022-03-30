@@ -21,9 +21,8 @@ import br.com.tcs.hbestoque.model.Produto;
 import br.com.tcs.hbestoque.model.ProdutoDetalhe;
 import br.com.tcs.hbestoque.model.commons.TipoEmbalagemEnum;
 import br.com.tcs.hbestoque.model.commons.VolumeEnum;
-import br.com.tcs.hbestoque.resource.dto.CommonDto;
 import br.com.tcs.hbestoque.resource.dto.DetalheProdutoDtoCadastro;
-import br.com.tcs.hbestoque.resource.dto.DetalheProdutoDtoPesquisa;
+import br.com.tcs.hbestoque.resource.dto.ProdutoDetalheDtoPesquisa;
 import br.com.tcs.hbestoque.resource.dto.ProdutoDtoCadastro;
 import br.com.tcs.hbestoque.resource.dto.ProdutoDtoPesquisa;
 import br.com.tcs.hbestoque.service.ProdutoDetalheService;
@@ -79,8 +78,8 @@ public class ProdutoResource {
 			
 			try {
 				Long idProd              = dto.getIdProduto();
-				TipoEmbalagemEnum tipo   = CommonDto.parseTipoEmbalabem(dto.getTipoEmbalagem());
-				VolumeEnum volume	     = CommonDto.parseVolume(dto.getVolume());
+				TipoEmbalagemEnum tipo   = TipoEmbalagemEnum.values()[dto.getTipoEmbalagem()];
+				VolumeEnum volume	     = VolumeEnum.values()[dto.getVolume()];
 				List<ProdutoDetalhe>list = produtoDetalheService.persquisarPorDetalhe(idProd, tipo, volume);
 				
 				if(list.isEmpty()) {
@@ -127,15 +126,12 @@ public class ProdutoResource {
 			
 			try {
 				VolumeEnum vl = VolumeEnum.values()[volume];
-				TipoEmbalagemEnum te = TipoEmbalagemEnum.values()[embalagem];
-				return new ResponseEntity<>(DetalheProdutoDtoPesquisa.parseToDtos(produtoDetalheService.persquisarPorDetalhe(nome, te, vl)), HttpStatus.OK);			
+				TipoEmbalagemEnum tipo   = TipoEmbalagemEnum.values()[embalagem];
+				return new ResponseEntity<>(ProdutoDetalheDtoPesquisa.parseToDtos(produtoDetalheService.persquisarPorDetalhe(nome, tipo, vl)), HttpStatus.OK);			
 				
 			}catch(Exception ex) {
 				logger.error("[LISTAR-PRODUTOS]", ex.fillInStackTrace());
 				return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 			}
 		}
-		
-		
-		
 }
